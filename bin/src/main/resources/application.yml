@@ -1,0 +1,25 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: gateway
+  cloud:
+    gateway:
+      routes:
+      - id: demo3_app
+        uri: lb://demo3App
+        predicates:
+        - Path=/api/**
+      - id: layeredApp
+        uri: lb://layeredApp
+        predicates:
+        - Path=/ser/**
+        
+eureka:
+  instance:
+    prefer-ip-address: true
+  client:
+    register-with-eureka: true
+    serviceUrl:
+      defaultZone: http://eurekaServer:8761/eureka

@@ -1,0 +1,25 @@
+server:
+  port: 8083
+
+spring:
+  application:
+    name: gateway
+  cloud:
+    gateway:
+      routes:
+      - id: senderApplication
+        uri: lb://empsManagement
+        predicates:
+        - Path=/appOne/**
+      - id: receiverApplication
+        uri: lb://carsRegistry
+        predicates:
+        - Path=/appTwo/**
+        
+eureka:
+  instance:
+    prefer-ip-address: true
+  client:
+    register-with-eureka: true
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka
